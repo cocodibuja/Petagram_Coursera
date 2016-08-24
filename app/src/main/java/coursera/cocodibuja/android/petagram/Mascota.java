@@ -5,14 +5,24 @@ package coursera.cocodibuja.android.petagram;
  */
 public class Mascota {
 
+    private int foto;
     private String nombre;
     private String telefono;
     private String email;
 
-    public Mascota(String nombre, String telefono, String email) {
+    public Mascota(int foto, String nombre, String telefono, String email) {
+        this.foto = foto;
         this.nombre = nombre;
         this.telefono = telefono;
         this.email = email;
+    }
+
+    public int getFoto() {
+        return foto;
+    }
+
+    public void setFoto(int foto) {
+        this.foto = foto;
     }
 
     public String getNombre() {

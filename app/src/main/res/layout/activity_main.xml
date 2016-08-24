@@ -8,6 +8,7 @@
     tools:context="coursera.cocodibuja.android.petagram.MainActivity">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/miactionbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -24,7 +25,8 @@
    <!-- <include layout="@layout/content_main" />
 -->
 
-    <include layout="@layout/lista_mascotas" />
+    <include layout="@layout/recycler_mascotas"
+       />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

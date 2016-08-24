@@ -1,23 +1,22 @@
 package coursera.cocodibuja.android.petagram;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Mascota> mascotas;
+    ArrayList<Mascota> arrayListMascotas;
+    private RecyclerView rvListaMascotas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,26 +27,28 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
         //*********************************-------------------------****************************
 
 
+        rvListaMascotas = (RecyclerView) findViewById(R.id.rvMascotas);
 
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvListaMascotas.setLayoutManager(llm); // le estoy diciendo que reciclerView se comporte como linearlayoutManager
+
+        inicializarListaDeContactos();
+        inicializarAdaptador();
+
+
+/*
         //definimos variables con xml
         ListView lstMascotas = (ListView) findViewById(R.id.lstMascotas);
 
 
-        mascotas = new ArrayList<Mascota>();
-
-
-        mascotas.add(new Mascota("pepe Grillo", "7777777","pepegrillo@gmail.com"));
-        mascotas.add(new Mascota("Juan peroz", "22222222","juanperoz@gmail.com"));
-        mascotas.add(new Mascota("Amalia Gomez", "55557777","AmaliaGomez@gmail.com"));
-        mascotas.add(new Mascota("Joana Lopez", "43334444443","Joanalopez@gmail.com"));
 
 
         ArrayList<String> nombresMascotas = new ArrayList<>();
-        for(Mascota mascota: mascotas){
+        for(Mascota mascota: arrayListMascotas){
             nombresMascotas.add(mascota.getNombre());
         }
 
@@ -60,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intentAbrirDetalleMascota = new Intent(MainActivity.this,DetalleMascota.class);
 
-                intentAbrirDetalleMascota.putExtra(getResources().getString(R.string.pnombre),mascotas.get(position).getNombre());
-                intentAbrirDetalleMascota.putExtra(getResources().getString(R.string.ptelefono),mascotas.get(position).getTelefono());
-                intentAbrirDetalleMascota.putExtra(getResources().getString(R.string.pemail),mascotas.get(position).getEmail());
+                intentAbrirDetalleMascota.putExtra(getResources().getString(R.string.pnombre),arrayListMascotas.get(position).getNombre());
+                intentAbrirDetalleMascota.putExtra(getResources().getString(R.string.ptelefono),arrayListMascotas.get(position).getTelefono());
+                intentAbrirDetalleMascota.putExtra(getResources().getString(R.string.pemail),arrayListMascotas.get(position).getEmail());
 
 
                 startActivity(intentAbrirDetalleMascota);
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
+*/
 
         //*********************************-------------------------****************************
 
@@ -106,5 +107,21 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void inicializarListaDeContactos(){
+        arrayListMascotas = new ArrayList<Mascota>();
+
+        arrayListMascotas.add(new Mascota(R.drawable.perro_feliz,"pepe Grillo", "7777777","pepegrillo@gmail.com"));
+        arrayListMascotas.add(new Mascota(R.drawable.perro_globo,"Juan peroz", "22222222","juanperoz@gmail.com"));
+        arrayListMascotas.add(new Mascota(R.drawable.perro_orejas,"Amalia Gomez", "55557777","AmaliaGomez@gmail.com"));
+        arrayListMascotas.add(new Mascota(R.drawable.perro_star,"Joana Lopez", "43334444443","Joanalopez@gmail.com"));
+
+    }
+
+    public void inicializarAdaptador() {
+        MascotaAdaptador mascotaAdaptador = new MascotaAdaptador(arrayListMascotas);// aca no hace falta volver a definirlo por que lo declaramos arriba y lo inicializamos y cargamos en public void inicializarListaDeContactos()
+        rvListaMascotas.setAdapter(mascotaAdaptador); //lo tengo que mostrar
+
     }
 }
