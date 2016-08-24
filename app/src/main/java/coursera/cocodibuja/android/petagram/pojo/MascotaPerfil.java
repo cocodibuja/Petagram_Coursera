@@ -1,16 +1,16 @@
-package coursera.cocodibuja.android.petagram;
+package coursera.cocodibuja.android.petagram.pojo;
 
 /**
  * Created by nicopro on 24/8/16.
  */
-public class Mascota {
+public class MascotaPerfil {
 
     private int foto;
     private String nombre;
     private String telefono;
     private String email;
 
-    public Mascota(int foto, String nombre, String telefono, String email) {
+    public MascotaPerfil(int foto, String nombre, String telefono, String email) {
         this.foto = foto;
         this.nombre = nombre;
         this.telefono = telefono;

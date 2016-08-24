@@ -3,9 +3,10 @@ package coursera.cocodibuja.android.petagram;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,23 +14,40 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import coursera.cocodibuja.android.petagram.adaptader.ViewPagerAdapter;
+
 public class MainActivity extends AppCompatActivity {
 
-    ArrayList<Mascota> arrayListMascotas;
-    private RecyclerView rvListaMascotas;
+
+    private Toolbar toolbar;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+
+
+
+        setUpViewPager(); // aca llamo a mi metodo para que cree los tab y los llene con fragments
+        if (toolbar !=null){
+            setSupportActionBar(toolbar);
+        }
 
 
 
         //*********************************-------------------------****************************
 
-
+/*
         rvListaMascotas = (RecyclerView) findViewById(R.id.rvMascotas);
 
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -38,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
 
         inicializarListaDeContactos();
         inicializarAdaptador();
-
+*/
 
 /*
         //definimos variables con xml
@@ -109,19 +127,26 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void inicializarListaDeContactos(){
-        arrayListMascotas = new ArrayList<Mascota>();
 
-        arrayListMascotas.add(new Mascota(R.drawable.perro_feliz,"pepe Grillo", "7777777","pepegrillo@gmail.com"));
-        arrayListMascotas.add(new Mascota(R.drawable.perro_globo,"Juan peroz", "22222222","juanperoz@gmail.com"));
-        arrayListMascotas.add(new Mascota(R.drawable.perro_orejas,"Amalia Gomez", "55557777","AmaliaGomez@gmail.com"));
-        arrayListMascotas.add(new Mascota(R.drawable.perro_star,"Joana Lopez", "43334444443","Joanalopez@gmail.com"));
+    private ArrayList<Fragment> agregarFragments(){
+        ArrayList<Fragment> fragments = new ArrayList<>();
 
-    }
-
-    public void inicializarAdaptador() {
-        MascotaAdaptador mascotaAdaptador = new MascotaAdaptador(arrayListMascotas);// aca no hace falta volver a definirlo por que lo declaramos arriba y lo inicializamos y cargamos en public void inicializarListaDeContactos()
-        rvListaMascotas.setAdapter(mascotaAdaptador); //lo tengo que mostrar
+        fragments.add(new PresentacionFragment()); // en el primer TAB
+        fragments.add(new PerfilFragment());       //Segundo TAB
+        return fragments;
 
     }
+
+
+    public void setUpViewPager(){
+
+
+
+        viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(),agregarFragments()));
+        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_home);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_account_circle);
+    }
+
+
 }
