@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
-import coursera.cocodibuja.android.petagram.adaptader.MascotaAdaptador;
+import coursera.cocodibuja.android.petagram.adaptader.MascotaPerfilAdaptador;
 import coursera.cocodibuja.android.petagram.pojo.Mascota;
 
 
@@ -58,7 +58,7 @@ public class PerfilFragment extends Fragment {
     }
 
     public void inicializarAdaptador() {
-        MascotaAdaptador mascotaAdaptador = new MascotaAdaptador(arrayListMascotas,getActivity());// aca no hace falta volver a definirlo por que lo declaramos arriba y lo inicializamos y cargamos en public void inicializarListaDeContactos()
+        MascotaPerfilAdaptador mascotaAdaptador = new MascotaPerfilAdaptador(arrayListMascotas,getActivity());// aca no hace falta volver a definirlo por que lo declaramos arriba y lo inicializamos y cargamos en public void inicializarListaDeContactos()
         rvListaMascotas.setAdapter(mascotaAdaptador); //lo tengo que mostrar
     }
 

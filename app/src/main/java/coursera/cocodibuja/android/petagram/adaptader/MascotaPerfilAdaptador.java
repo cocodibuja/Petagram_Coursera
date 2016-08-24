@@ -29,7 +29,7 @@ public class MascotaPerfilAdaptador extends RecyclerView.Adapter <MascotaPerfilA
 
     @Override
     public MascotaViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_mascota,parent,false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_mascota_perfil,parent,false);
         return new MascotaViewHolder(v);
     }
 
