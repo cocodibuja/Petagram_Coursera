@@ -13,17 +13,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import coursera.cocodibuja.android.petagram.R;
-import coursera.cocodibuja.android.petagram.pojo.Mascota;
+import coursera.cocodibuja.android.petagram.pojo.MascotaPerfil;
 
 /**
  * Created by nicopro on 24/8/16.
  */
 public class MascotaPerfilAdaptador extends RecyclerView.Adapter <MascotaPerfilAdaptador.MascotaViewHolder>{
 
-    ArrayList<Mascota> arrayListMascotas;
+    ArrayList<MascotaPerfil> arrayListMascotas;
     Activity activity;
 
-    public MascotaPerfilAdaptador(ArrayList<Mascota> arrayListMascotas, Activity activity) {
+    public MascotaPerfilAdaptador(ArrayList<MascotaPerfil> arrayListMascotas, Activity activity) {
         this.arrayListMascotas = arrayListMascotas;
         this.activity = activity;
     }
@@ -36,13 +36,11 @@ public class MascotaPerfilAdaptador extends RecyclerView.Adapter <MascotaPerfilA
 
     @Override
     public void onBindViewHolder(MascotaViewHolder mascotaViewHolder, int position) {
-        final Mascota mascota = arrayListMascotas.get(position);
+        final MascotaPerfil mascota = arrayListMascotas.get(position);
         mascotaViewHolder.imgFoto.setImageResource(mascota.getFoto());
         mascotaViewHolder.tvNombre.setText(mascota.getNombre());
         mascotaViewHolder.tvTelefono.setText(mascota.getTelefono());
         mascotaViewHolder.tvLikes.setText(String.valueOf(mascota.getLikes()+"Likes"));
-
-
         mascotaViewHolder.imgFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

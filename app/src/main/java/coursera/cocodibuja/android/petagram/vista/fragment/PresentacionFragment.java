@@ -46,10 +46,6 @@ public class PresentacionFragment extends Fragment implements IPresentacionFragm
 
 
 
-
-
-
-
     @Override
     public void generarLinearLayoutVertical() {
         LinearLayoutManager llm = new LinearLayoutManager(getContext());
@@ -68,7 +64,6 @@ public class PresentacionFragment extends Fragment implements IPresentacionFragm
         rvListaMascotas.setAdapter(mascotaAdaptador); //lo tengo que mostrar
 
     }
-
 
 
 

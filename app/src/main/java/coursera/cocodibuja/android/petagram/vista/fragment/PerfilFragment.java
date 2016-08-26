@@ -13,16 +13,18 @@ import java.util.ArrayList;
 
 import coursera.cocodibuja.android.petagram.R;
 import coursera.cocodibuja.android.petagram.adaptader.MascotaPerfilAdaptador;
-import coursera.cocodibuja.android.petagram.pojo.Mascota;
+import coursera.cocodibuja.android.petagram.pojo.MascotaPerfil;
+import coursera.cocodibuja.android.petagram.presentador.PerfilFragmentPresenter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class PerfilFragment extends Fragment {
+public class PerfilFragment extends Fragment implements IPerfilFragmentView {
 
-    ArrayList<Mascota> arrayListMascotas;
+    ArrayList<MascotaPerfil> arrayListMascotas;
     private RecyclerView rvListaMascotas;
+    private PerfilFragmentPresenter presenter;
 
     public PerfilFragment() {
         // Required empty public constructor
@@ -34,33 +36,32 @@ public class PerfilFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_perfil, container, false);
-
         rvListaMascotas = (RecyclerView) v.findViewById(R.id.rvMascotas);
-
-        LinearLayoutManager llm = new LinearLayoutManager(getContext());
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        rvListaMascotas.setLayoutManager(llm); // le estoy diciendo que reciclerView se comporte como linearlayoutManager
-
-        inicializarListaDeMascotas();
-        inicializarAdaptador();
+        presenter = new PerfilFragmentPresenter(this,getContext());
 
         return v;
     }
 
 
-    public void inicializarListaDeMascotas(){
-        arrayListMascotas = new ArrayList<Mascota>();
-
-        arrayListMascotas.add(new Mascota(R.drawable.perro_orejas,"Amalia Gomez", "55557777","AmaliaGomez@gmail.com",1));
-        arrayListMascotas.add(new Mascota(R.drawable.perro_star,"Joana Lopez", "43334444443","Joanalopez@gmail.com",2));
-        arrayListMascotas.add(new Mascota(R.drawable.perro_feliz,"pepe Grillo", "7777777","pepegrillo@gmail.com",3));
-        arrayListMascotas.add(new Mascota(R.drawable.perro_globo,"Juan peroz", "22222222","juanperoz@gmail.com",4));
+    @Override
+    public void generarLinearLayoutVertical() {
+        LinearLayoutManager llm = new LinearLayoutManager(getContext());
+        llm.setOrientation(LinearLayoutManager.VERTICAL);
+        rvListaMascotas.setLayoutManager(llm); // le estoy diciendo que reciclerView se comporte como linearlayoutManager
 
     }
 
-    public void inicializarAdaptador() {
-        MascotaPerfilAdaptador mascotaAdaptador = new MascotaPerfilAdaptador(arrayListMascotas,getActivity());// aca no hace falta volver a definirlo por que lo declaramos arriba y lo inicializamos y cargamos en public void inicializarListaDeContactos()
-        rvListaMascotas.setAdapter(mascotaAdaptador); //lo tengo que mostrar
+    @Override
+    public MascotaPerfilAdaptador crearAdaptador(ArrayList<MascotaPerfil> mascotas) {
+
+       MascotaPerfilAdaptador mascotaPerfilAdaptador = new MascotaPerfilAdaptador(mascotas,getActivity());
+        return mascotaPerfilAdaptador;
+
+    }
+
+    @Override
+    public void inicializarAdaptadorEnRecyclerView(MascotaPerfilAdaptador mascotaAdaptador) {
+        rvListaMascotas.setAdapter(mascotaAdaptador);
     }
 
 }
