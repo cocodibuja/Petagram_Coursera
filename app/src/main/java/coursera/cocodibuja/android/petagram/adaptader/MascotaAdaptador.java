@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +40,7 @@ public class MascotaAdaptador extends RecyclerView.Adapter <MascotaAdaptador.Mas
         mascotaViewHolder.imgFoto.setImageResource(mascota.getFoto());
         mascotaViewHolder.tvNombre.setText(mascota.getNombre());
         mascotaViewHolder.tvTelefono.setText(mascota.getTelefono());
+        mascotaViewHolder.tvLikes.setText(String.valueOf(mascota.getLikes()+"Likes"));
 
         mascotaViewHolder.imgFoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +48,16 @@ public class MascotaAdaptador extends RecyclerView.Adapter <MascotaAdaptador.Mas
                 Toast.makeText(activity,mascota.getNombre(),Toast.LENGTH_SHORT).show();
             }
         });
+
+        mascotaViewHolder.btnLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(activity,"Diste Like a "+mascota.getNombre(),Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
 
     }
 
@@ -61,13 +73,17 @@ public class MascotaAdaptador extends RecyclerView.Adapter <MascotaAdaptador.Mas
         private ImageView imgFoto;
         private TextView tvNombre;
         private TextView tvTelefono;
+        private ImageButton btnLike;
+        private TextView tvLikes;
 
         public MascotaViewHolder(View itemView) {
             super(itemView);
             imgFoto     = (ImageView) itemView.findViewById(R.id.imgFoto);
             tvNombre    = (TextView) itemView.findViewById(R.id.tvNombreCV);
             tvTelefono  = (TextView) itemView.findViewById(R.id.tvTelefonoCV);
-                 }
+            btnLike     = (ImageButton) itemView.findViewById(R.id.btnLike);
+            tvLikes     = (TextView) itemView.findViewById(R.id.tvLikes);
+        }
     }
 
 }

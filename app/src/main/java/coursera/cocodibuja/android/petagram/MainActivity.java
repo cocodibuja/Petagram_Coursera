@@ -15,6 +15,8 @@ import android.view.View;
 import java.util.ArrayList;
 
 import coursera.cocodibuja.android.petagram.adaptader.ViewPagerAdapter;
+import coursera.cocodibuja.android.petagram.vista.fragment.PerfilFragment;
+import coursera.cocodibuja.android.petagram.vista.fragment.PresentacionFragment;
 
 public class MainActivity extends AppCompatActivity {
 
