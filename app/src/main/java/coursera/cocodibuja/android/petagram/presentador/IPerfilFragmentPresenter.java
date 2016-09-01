@@ -7,4 +7,6 @@ public interface IPerfilFragmentPresenter {
 
     public void obtenerDatosDeBaseDatos();
     public void mostarMascotasEnRecyclerView();
+    public void obtenerMediosRecientes();
+
 }

@@ -5,57 +5,46 @@ package coursera.cocodibuja.android.petagram.pojo;
  */
 public class MascotaPerfil {
 
-    private int id;
-    private int foto;
-    private String nombre;
-    private String telefono;
-    private String email;
+    private String id;
 
 
 
+    private String urlFoto;
+    private String nombreCompleto;
+    private int likes = 0;
 
-    private int likes;
-
-    public MascotaPerfil( int foto, String nombre, String telefono, String email, int likes) {
-        this.foto = foto;
-        this.nombre = nombre;
-        this.telefono = telefono;
-        this.email = email;
+    public MascotaPerfil(String urlFoto, String nombreCompleto, int likes) {
+        this.urlFoto = urlFoto;
+        this.nombreCompleto = nombreCompleto;
         this.likes = likes;
     }
 
-    public int getFoto() {
-        return foto;
+    public MascotaPerfil() {
+
+    }
+    public String getId() {
+        return id;
     }
 
-    public void setFoto(int foto) {
-        this.foto = foto;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getUrlFoto() {
+        return urlFoto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
-    public String getTelefono() {
-        return telefono;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
 
     public int getLikes() {
         return likes;

@@ -13,5 +13,6 @@ public interface IPerfilFragmentView {
     public void generarLinearLayoutVertical();
     public MascotaPerfilAdaptador crearAdaptador(ArrayList<MascotaPerfil> mascotas);
     public void inicializarAdaptadorEnRecyclerView(MascotaPerfilAdaptador mascotaAdaptador);
+    public void generarGridLayout();
 
 }

@@ -1,17 +1,19 @@
 package coursera.cocodibuja.android.petagram.adaptader;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+import coursera.cocodibuja.android.petagram.DetalleMascotaPerfilActivity;
 import coursera.cocodibuja.android.petagram.R;
 import coursera.cocodibuja.android.petagram.pojo.MascotaPerfil;
 
@@ -37,16 +39,27 @@ public class MascotaPerfilAdaptador extends RecyclerView.Adapter <MascotaPerfilA
     @Override
     public void onBindViewHolder(MascotaViewHolder mascotaViewHolder, int position) {
         final MascotaPerfil mascota = arrayListMascotas.get(position);
-        mascotaViewHolder.imgFoto.setImageResource(mascota.getFoto());
-        mascotaViewHolder.tvNombre.setText(mascota.getNombre());
-        mascotaViewHolder.tvTelefono.setText(mascota.getTelefono());
-        mascotaViewHolder.tvLikes.setText(String.valueOf(mascota.getLikes()+"Likes"));
+      //  mascotaViewHolder.imgFoto.setImageResource(mascota.getUrlFoto());
+        Picasso.with(activity)
+                .load(mascota.getUrlFoto())
+                .placeholder(R.drawable.perro_globo)
+                .into(mascotaViewHolder.imgFoto);
+
+        mascotaViewHolder.tvLikes.setText(String.valueOf(mascota.getLikes()));
+
         mascotaViewHolder.imgFoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(activity,mascota.getNombre(),Toast.LENGTH_SHORT).show();
+                Intent intentAbrirDetalleMascotaPerfil = new Intent(activity, DetalleMascotaPerfilActivity.class);
+
+                intentAbrirDetalleMascotaPerfil.putExtra("urlImagen",mascota.getUrlFoto());
+                intentAbrirDetalleMascotaPerfil.putExtra("like",mascota.getLikes());
+                activity.startActivity(intentAbrirDetalleMascotaPerfil);
+
             }
         });
+
+
 
     }
 
@@ -60,18 +73,12 @@ public class MascotaPerfilAdaptador extends RecyclerView.Adapter <MascotaPerfilA
         // declaramos lo que tenemos en el cardview_mascota
 
         private ImageView imgFoto;
-        private TextView tvNombre;
-        private TextView tvTelefono;
-        private ImageButton btnLike;
         private TextView tvLikes;
 
         public MascotaViewHolder(View itemView) {
             super(itemView);
             imgFoto     = (ImageView) itemView.findViewById(R.id.imgFoto);
-            tvNombre    = (TextView) itemView.findViewById(R.id.tvNombreCV);
-            tvTelefono  = (TextView) itemView.findViewById(R.id.tvTelefonoCV);
-            btnLike     = (ImageButton) itemView.findViewById(R.id.btnLike);
-            tvLikes     = (TextView) itemView.findViewById(R.id.tvLikes);
+             tvLikes     = (TextView) itemView.findViewById(R.id.tvLikes);
         }
     }
 

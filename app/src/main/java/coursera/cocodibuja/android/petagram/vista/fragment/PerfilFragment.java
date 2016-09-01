@@ -3,6 +3,7 @@ package coursera.cocodibuja.android.petagram.vista.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -62,6 +63,13 @@ public class PerfilFragment extends Fragment implements IPerfilFragmentView {
     @Override
     public void inicializarAdaptadorEnRecyclerView(MascotaPerfilAdaptador mascotaAdaptador) {
         rvListaMascotas.setAdapter(mascotaAdaptador);
+    }
+
+    @Override
+    public void generarGridLayout() {
+        int cantidad_de_columnas = 2;
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),cantidad_de_columnas);
+        rvListaMascotas.setLayoutManager(gridLayoutManager);
     }
 
 }

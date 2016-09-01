@@ -7,4 +7,5 @@ public interface IPresentacionFragmentPresenter {
 
     public void obtenerDatosDeBaseDatos();
     public void mostarMascotasEnRecyclerView();
+
 }

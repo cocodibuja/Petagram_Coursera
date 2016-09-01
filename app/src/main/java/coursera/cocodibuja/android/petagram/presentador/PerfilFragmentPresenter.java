@@ -1,17 +1,27 @@
 package coursera.cocodibuja.android.petagram.presentador;
 
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
 import coursera.cocodibuja.android.petagram.db.ConstructorMascotasPerfil;
 import coursera.cocodibuja.android.petagram.pojo.MascotaPerfil;
+import coursera.cocodibuja.android.petagram.restApi.IEndPointsApi;
+import coursera.cocodibuja.android.petagram.restApi.adaptador.RestApiAdapter;
+import coursera.cocodibuja.android.petagram.restApi.modelo.MascotaPerfilResponse;
 import coursera.cocodibuja.android.petagram.vista.fragment.IPerfilFragmentView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by nicopro on 26/8/16.
  */
-public class PerfilFragmentPresenter implements IPresentacionFragmentPresenter {
+public class PerfilFragmentPresenter implements IPerfilFragmentPresenter {
 
 
 
@@ -24,7 +34,8 @@ public class PerfilFragmentPresenter implements IPresentacionFragmentPresenter {
     public PerfilFragmentPresenter(IPerfilFragmentView iPerfilFragmentView, Context context) {
         this.iPerfilFragmentView = iPerfilFragmentView;
         this.context = context;
-        obtenerDatosDeBaseDatos();
+       // obtenerDatosDeBaseDatos();
+        obtenerMediosRecientes();
     }
 
     @Override
@@ -39,7 +50,74 @@ public class PerfilFragmentPresenter implements IPresentacionFragmentPresenter {
     public void mostarMascotasEnRecyclerView() {
 
         iPerfilFragmentView.inicializarAdaptadorEnRecyclerView(iPerfilFragmentView.crearAdaptador(mascotasPerfil));
-        iPerfilFragmentView.generarLinearLayoutVertical();
+        iPerfilFragmentView.generarGridLayout();
 
+
+    }
+
+    @Override
+    public void obtenerMediosRecientes() {
+
+        RestApiAdapter restApiAdapter = new RestApiAdapter();
+        Gson gsonMediaRecent = restApiAdapter.construyeGsonDeserializadorMediaRecent();
+        IEndPointsApi iEndPointsApi = restApiAdapter.establecerConexionRestApiInstagram(gsonMediaRecent);
+        final Call<MascotaPerfilResponse> mascotaPerfilResponseCall = iEndPointsApi.getRecentMedia();
+
+        mascotaPerfilResponseCall.enqueue(new Callback<MascotaPerfilResponse>() {
+            @Override
+            public void onResponse(Call<MascotaPerfilResponse> call, Response<MascotaPerfilResponse> response) {
+
+                MascotaPerfilResponse mascotaPerfilResponse = response.body();
+                mascotasPerfil = mascotaPerfilResponse.getMascotas();
+                mostarMascotasEnRecyclerView();
+
+                Log.e("HAY CONEXION","FUNCA");
+
+                Toast.makeText(context,"Conexiooonnnn",Toast.LENGTH_SHORT).show();
+
+
+            }
+
+            @Override
+            public void onFailure(Call<MascotaPerfilResponse> call, Throwable t) {
+                Toast.makeText(context,"Algo paso en la conexion! intenta de nuevo",Toast.LENGTH_SHORT).show();
+
+                Log.e("fallo la cooooonexion",t.toString());
+            }
+        });
+
+
+
+
+  /*
+        RestApiAdapter restApiAdapter = new RestApiAdapter();
+        Log.e("hola","salida");
+        Gson gsonMediaRecent = restApiAdapter.construyeGsonDeserializadorMediaRecent();
+
+        Log.e("hola2","salida");
+        IEndPointsApi iEndPointsApi = restApiAdapter.establecerConexionRestApiInstagram(gsonMediaRecent);
+        Log.e("hola3","salida");
+        Call<MascotaPerfilResponse> mascotaPerfilResponseCall=  iEndPointsApi.getRecentMedia();
+        Log.e("hola4","salida");
+
+        mascotaPerfilResponseCall.enqueue(new Callback<MascotaPerfilResponse>() {//para estar controlando el resultado de la respuesta
+            @Override
+            public void onResponse(Call<MascotaPerfilResponse> call, Response<MascotaPerfilResponse> response) {
+                //Si la peticion trae datos los uso
+                MascotaPerfilResponse mascotaPerfilResponse = response.body(); // trae data
+                mascotasPerfil = mascotaPerfilResponse.getMascotas();
+                mostarMascotasEnRecyclerView();
+
+            }
+
+            @Override
+            public void onFailure(Call<MascotaPerfilResponse> call, Throwable t) {
+                Toast.makeText(context,"Algo paso en la conexion! intenta de nuevo",Toast.LENGTH_SHORT).show();
+               // log.e("FALLO LA CONEXION : error", t.toString());
+                Log.e("fallo la cooooonexion",t.toString());
+            }
+        });
+
+*/
     }
 }

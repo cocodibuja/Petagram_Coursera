@@ -3,76 +3,52 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tvContacto"
-    android:layout_width="200dp"
-    android:layout_height="200dp"
+    android:layout_width="wrap_content"
+    android:layout_height="170dp"
     android:layout_marginBottom="@dimen/activity_vertical_margin"
     card_view:cardCornerRadius="@dimen/corner_radius_cardview">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="6dp"
         >
         <ImageView
             android:id="@+id/imgFoto"
-            android:layout_width="125dp"
-            android:layout_height="72dp"
-            android:src="@drawable/perro_globo"
-            android:scaleType="centerCrop"
-
+            android:layout_width="120dp"
+            android:layout_height="130dp"
+            android:src="@drawable/perro_star"
+            android:transitionName="@string/transicion_foto"
             />
 
-        <RelativeLayout
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
+
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
             >
-            <ImageButton
-                android:id="@+id/btnLike"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_favorite_black_24dp"
-                />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_centerHorizontal="true"
-                >
-                <TextView
-                    android:id="@+id/tvNombreCV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pnombre"
-                    android:textSize="@dimen/nombre_cardview"
-                    />
-
-                <TextView
-                    android:id="@+id/tvTelefonoCV"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ptelefono"
-
-                    />
-
-            </LinearLayout>
 
             <TextView
                 android:id="@+id/tvLikes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/plikes"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
                 android:textSize="@dimen/nombre_cardview"
+                />
+            <ImageView
+                android:id="@+id/imgBone"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:src="@drawable/like_bone"
                 />
 
 
 
-        </RelativeLayout>
-
+        </LinearLayout>
 
 
     </LinearLayout>
